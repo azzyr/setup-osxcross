@@ -11,6 +11,11 @@ inputs:
     description: "Version of osx to use."
     required: true
 
+outputs:
+  osxcross-target:
+    description: "The osxcross target directory"
+    value: ${{ steps.target.outputs.target }}
+
 runs:
   using: "composite"
   steps:
@@ -77,6 +82,7 @@ runs:
         echo "::endgroup::"
 
         echo "OSXCROSS_TARGET=${OSXCROSS_FOLDER}/target" >> $GITHUB_ENV
+        echo "target=${OSXCROSS_FOLDER}/target" >> $GITHUB_OUTPUT
 
     - uses: actions/cache@v3
       id: cache
@@ -85,9 +91,7 @@ runs:
         path: |
           ~/.cargo/registry
           ~/.cargo/git
-          ${{ env.OSXCROSS_TARGET }}
-          ${{ env.OSXCROSS_FOLDER }}/target/bi
-          
+          ${{ steps.target.outputs.target }}
 
     - shell: bash
       if: steps.cache.outputs.cache-hit != 'true'
