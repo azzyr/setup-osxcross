@@ -1,10 +1,9 @@
-name: "Setup osxcross"
-author: mbround18
-description: Setup osxcross for rust/other compilation projects.
+name: "Setup osxcross with output"
+author: azzyr
+description: Setup osxcross
 branding:
   icon: 'aperture'  
   color: 'green'
-
 
 inputs:
   osx-version:
